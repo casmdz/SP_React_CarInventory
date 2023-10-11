@@ -1,4 +1,4 @@
-// import { useState } from "react"
+import { useState } from "react"
 
 import { Box, Button, Container, Grid, Paper, Stack } from '@mui/material';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
@@ -13,90 +13,95 @@ import DataTable from './__test__/CarTable';
 import CarModal from './CarModal';
 
 
+// ==========================================
 export default function GaragePage() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [formType, setFormType] = useState<"add" | "update" | "delete" | null>(null);
+
+    const openModal = (type: "add" | "update" | "delete") => {
+        setIsModalOpen(true);
+        setFormType(type);
+    }
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setFormType(null);
+    }
+
+    const getData = async () => {
+        const result = await server_calls.get();
+        console.log(result);
+    }
+
+    return (
+        <Box sx={{ display: 'flex' }}>
+
+            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+
+                <Grid container spacing={3}>
+
+                    <Grid item xs={12}>
+                        <button className='bg-teal-300 p-2'
+                            onClick={getData}>get data</button>
+                    </Grid>
 
 
-const getData = async () => {
-    const result = await server_calls.get();
-    console.log(result);
-}
+                    <Grid item xs={12}>
+                        <Stack direction="row" spacing={2}>
 
-return (
-    <Box sx={{ display: 'flex' }}>
+                            <Button variant="contained"
+                                endIcon={<AddRoundedIcon />}
+                                color="info"
+                                onClick={() => openModal("add")}
+                            >Add New Car
+                            </Button>
 
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+                            <Button variant="contained" color="info"
+                                endIcon={<UpdateRoundedIcon />}
+                                onClick={() => { alert('clicked'); }}
+                            >Click Update
+                            </Button>
 
-            <Grid container spacing={3}>
+                            <Button variant="contained" color="info"
+                                endIcon={<DeleteForeverRoundedIcon />}
+                                href="#contained-buttons">
+                                Delete
+                            </Button>
+                        </Stack>
+                    </Grid>
 
-                <Grid item xs={12}>
-                    <button className='bg-teal-300 p-2' 
-                    onClick={getData}>get data</button>
+                    {/* Recent Deposits */}
+                    <Grid item xs={12} md={4} lg={3}>
+                        <Paper
+                            sx={{
+                                p: 2,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                height: '100%',
+                            }}
+                        >
+                            <Deposits />
+                        </Paper>
+                    </Grid>
+
+                    <Grid item xs={12} md={8} lg={9}>
+                        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'row' }}>
+                            <DataTable />
+                        </Paper>
+                    </Grid>
+
+                    {/* Recent Orders */}
+                    <Grid item xs={12}>
+                        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                            <Orders />
+                        </Paper>
+                    </Grid>
+
                 </Grid>
-{/* 
-                something like this 
-                <button onClick={() => openModal('new')}>Add New Car</button>
-                <button onClick={() => openModal('update')}>Update My Car</button>
-                <button onClick={() => openModal('delete')}>Delete My Car</button> 
 
-                <UpdatedCarModal open={isModalOpen} onClose={closeModal} formType="new" />
-*/}
+                <CarModal open={isModalOpen} onClose={closeModal} formType={formType} />
 
-
-                <Grid item xs={12}>
-                    <Stack direction="row" spacing={2}>
-
-                        <Button variant="contained" 
-                        endIcon={<AddRoundedIcon />} 
-                        color="info"
-                        >Add New Car
-                        </Button>
-
-                        <Button variant="contained" color="info"
-                        endIcon={<UpdateRoundedIcon />}
-                        onClick={() => {alert('clicked');}}
-                        >Click Update
-                        </Button>
-
-                        <Button variant="contained" color="info" 
-                        endIcon={<DeleteForeverRoundedIcon />} 
-                        href="#contained-buttons">
-                            Delete
-                        </Button>
-                    </Stack>
-                </Grid>
-
-                {/* Recent Deposits */}
-                <Grid item xs={12} md={4} lg={3}>
-                    <Paper
-                        sx={{
-                            p: 2,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            height: '100%',
-                        }}
-                    >
-                        <Deposits />
-                    </Paper>
-                </Grid>
-
-                <Grid item xs={12} md={8} lg={9}>
-                    <Paper sx={{ p:2, display: 'flex', flexDirection:'row'}}>
-                        <DataTable />
-                    </Paper>
-                </Grid>
-
-                {/* Recent Orders */}
-                <Grid item xs={12}>
-                    <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                        <Orders />
-                    </Paper>
-                </Grid>
-
-            </Grid>
-
-            {/* <CarModal open={isModalOpen} onClose={closeModal} formType="new" /> */}
-
-        </Container>
-    </Box>
-);
+            </Container>
+        </Box>
+    );
 }

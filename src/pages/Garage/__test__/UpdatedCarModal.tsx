@@ -1,20 +1,17 @@
-import { Box } from "@mui/material"
-import { style } from "../../../components/ui/BasicModal"
 import BasicModal from "../../../components/ui/BasicModal"
 import NewCarForm from "./NewCarForm";
 
 
-const UpdatedCarModal = ({ open, onClose }) => {
+const UpdatedCarModal = ({ open, onClose, styles }) => {
 
   const getContent = () => (
     // if (formType === 'new') {
     //   return <NewCarForm />;
     // }
     // <Box sx={[style.inputFields, style.buttons]}>
-      <NewCarForm style={style.inputFields, style.button} />
+      <NewCarForm styles={styles} onClose={onClose} />
     // </Box>
   );
-
 
   return (
     <BasicModal

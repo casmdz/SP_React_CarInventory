@@ -1,35 +1,7 @@
-import { useState } from "react";
 import { Box, Button, Container, Grid, Stack } from '@mui/material';
 
-import NewCarModal from "../Garage/__test__/__NewCarModal";
-import UpdatedCarModal from "../Garage/__test__/UpdatedCarModal";
-
-
 export function AboutPage() {
-  const [open, setOpen] = useState(false); //close as default
 
-  // const handleOpen = () => {
-  //   setOpen(true);
-  // }
-  const handleClose = () => {
-    setOpen(false);
-  }
-
-  const addUser = () => {
-    setOpen(true);
-    console.log('click add user'); 
-  }
-
-
-  // const getHeader = () => {
-  //   const handleChange = (value) => {
-  //     console.log(value);
-  //   };
-  //   const addUser = () => {
-  //     setOpen(true);
-  //     console.log('click add user');
-  //   }
-  // }
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -47,13 +19,11 @@ export function AboutPage() {
             <Stack direction="row" spacing={2}>
               <Button variant="contained"
                 color="info"
-                onClick={addUser}
               >Add New Car
               </Button>
 
               <Button variant="contained" color="info"
-                // onClick={() => { alert('clicked'); }}
-                onClick={addUser}
+                onClick={() => { alert('clicked'); }}
               >Test New Car Form
               </Button>
             </Stack>
@@ -61,9 +31,7 @@ export function AboutPage() {
 
         </Grid>
 
-        {/* <NewCarModal open={open} onClose={() => handleClose()} /> */}
-
-        <UpdatedCarModal open={open} onClose={() => handleClose()} />
+        {/* <UpdatedCarModal open={open} onClose={() => handleClose()} styles={styles}/> */}
 
       </Container>
     </Box>

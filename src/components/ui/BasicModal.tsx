@@ -4,7 +4,7 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
 import React from 'react';
 
-export const style = {
+export const styles = {
   wrapper: {
     position: 'absolute' as 'absolute',
     top: '50%',
@@ -23,14 +23,22 @@ export const style = {
     '.MuiInput-root': {
       marginBottom: '20px',
     },
-    gap: '1em'
-
+    gap: '1em',
   },
   buttons: {
     display: 'flex',
     justifyContent: 'end',
-    gap: 2,
+    gap: 4,
+    // variant: 'contained',
+
+  },
+  input: {
+    background: "#ec5990",
+    color: 'white',
+    padding: '10px',
+    borderRadius: '6px',
   }
+
 };
 
 interface BasicModalProps {
@@ -39,50 +47,34 @@ interface BasicModalProps {
   title: string;
   description: string;
   content: React.ReactNode;
+  children?: React.ReactNode;
   // validate: () => void;
 }
 
 
 const BasicModal = ({ open, onClose, title, description, content }: BasicModalProps) => {
-  // const BasicModal = ({ open, onClose, title, description, content, validate }) => {
-
 
   return (
     <Modal open={open} onClose={onClose}>
-      <Box sx={style.wrapper} onClick={(e) => { e.stopPropagation() }}>
-        {/*<div className='flex flex-row justify-between'> */}
+      <Box sx={styles.wrapper} onClick={(e) => { e.stopPropagation() }}>
         <div className='grid grid-cols-2 gap-1'>
-          {/*  justify-self-start*/}
           <Typography id="modal-modal-title" variant="h5" component="h2" className="col-start-1 self-end">
             {title}
           </Typography>
 
           <IconButton aria-label="close"
-            onClick={onClose} className="col-end-auto justify-self-end" // self start
-          // sx={{
-          //     position:'absolute',
-          //     right: 8,
-          //     top: 8,
-          //     color: 'grey'
-          // }}
+            onClick={onClose} className="col-end-auto justify-self-end"
           >
             <CloseRoundedIcon />
           </IconButton>
         </div>
         <Divider />
 
-
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
           {description}
         </Typography>
 
         {content}
-
-        {/* <Box sx={style.buttons}>
-            <Button variant="contained" onClick={validate}
-            >Submit</Button>
-            <Button onClick={onClose}>Cancel</Button>
-          </Box> */}
 
       </Box>
     </Modal>
@@ -92,5 +84,6 @@ export default BasicModal
 
 
 // alright i dont want my basic modal to have a submit button, so I'll take that away
+// TODO
 // no onClick validate
 // onClose 
