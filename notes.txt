@@ -1,0 +1,34 @@
+routes router 
+webdevs 
+https://youtu.be/Ul3y1LXxzdU?si=iQhtbJw4wL08RMGl
+
+i might want to have a drawer in my profile page just because it looks cool idk 
+
+https://redux.js.org/tutorials/essentials/part-1-overview-concepts
+
+form context might lead to performance issues 
+triggering a re render 
+use react memo hook to try to mitigate that 
+
+v7 hooks-form 
+    'react/jsx-props-no-spreading':'off',
+
+
+okay so the plan is to 
+- create barebones forms (add update and delete)
+- add the working buttons to the garagepage. 
+- make sure the styling works for all forms 
+
+- add redux and implement other data stuff 
+
+
+tree: 
+garagepage 
+ | 
+basic modal 
+ | 
+CarModal 
+ \ \ \
+Add Update Delete
+    Forms 
+    
