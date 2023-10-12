@@ -3,7 +3,7 @@ import { Modal, Button } from "@mui/material";
 import AddCarForm from "./AddCarForm";
 import UpdateCarForm from "./UpdateCarForm";
 import DeleteCarForm from "./DeleteCarForm";
-import BasicModal from "../../../components/ui/BasicModal";
+import BasicModal from "../../../components/BasicModal";
 
 
 // interface CarModalProps {

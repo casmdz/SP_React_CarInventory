@@ -19,6 +19,58 @@ export const server_calls = {
             throw new Error('failed to fetch data from the server')
         }
         return await response.json()
-    }
-    //TODO finish server calls 
-}
+    },
+
+    create: async (data: any = {}) => {
+        const response = await fetch(`https://flask-api-car-collection.onrender.com/api/cars`,
+        {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                // 'Access-Control-Allow-Origin': '*',
+                // 'x-access-token': `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        })
+
+        if (!response.ok) {
+            console.log('failed to create new data on the server!')
+            throw new Error('failed to create new data on the server.')
+        }
+        return await response.json() 
+    },
+
+    update: async (id: string, data: any ={}) => {
+        const response = await fetch (`https://flask-api-car-collection.onrender.com/api/cars${id}`, // TODO check 4 correct endpoint
+        {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'x-access-token': `Bearer ${token}`
+            },
+            body: JSON.stringify(data) 
+        }) 
+        if (!response.ok) {
+            throw new Error('Failed to update data on the server.')
+        }
+        return await response.json()
+    },
+
+    delete: async (id: string) => {
+        const response = await fetch (`https://flask-api-car-collection.onrender.com/api/cars${id}`, // TODO check 4 correct endpoint
+        {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'x-access-token': `Bearer ${token}`
+            },
+        }) 
+        if (!response.ok){
+            throw new Error('Failed to delete data on the server') 
+        }
+        return;
+    },
+
+};

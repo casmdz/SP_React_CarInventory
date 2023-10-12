@@ -1,7 +1,7 @@
 import AddCarForm from "./form/AddCarForm";
-// import UpdateCarForm from "./UpdateCarForm";
+import UpdateCarForm from "./form/UpdateCarForm";
 // import DeleteCarForm from "./DeleteCarForm";
-import BasicModal, { styles } from "../../components/ui/BasicModal";
+import BasicModal, { styles } from "../../components/BasicModal";
 
 
 interface CarModalProps {
@@ -12,35 +12,26 @@ interface CarModalProps {
 
 
 const CarModal = ({ open, onClose, formType }: CarModalProps) => {
-  // const [formType, setFormType] = useState<string | null>(null);
 
   let title = "";
   let description = "";
+  let formContent = null;
 
-  // const renderForm = () => {
-  //   switch (formType) {
-  //     case "add":
-  //       return <AddCarForm onClose={onClose} styles={styles} />;
-  //     case "update":
-  //       return <AddCarForm onClose={onClose} styles={styles} />;
-  //     default:
-  //       return null;
-  //   }
-  // }
 
   switch (formType) {
     case "add":
       title = "Add Car";
       description = "Add a new car to your garage.";
+      formContent = <AddCarForm onClose={onClose} styles={styles} />;
       break;
     case "update":
       title = "Update Car";
-      description = "Update car details.";
+      description = "Update your car details.";
+      formContent = <UpdateCarForm onClose={onClose} styles={styles} />;
       break;
-    // Handle other cases here
     default:
       title = "Car Dashboard Form";
-      description = "Fill out the details according to the button you clicked"
+      description = "Fill out the details according to the button you clicked"; 
       break;
   }
 
@@ -59,12 +50,12 @@ const CarModal = ({ open, onClose, formType }: CarModalProps) => {
       onClose={onClose}
       title={title}
       description={description}
-      content={
-        formType === "add" ? (
-          <AddCarForm onClose={onClose} styles={styles} />
-        ) : null
-        // Handle other form types here
-      }
+      content={formContent}
+      // content={
+      //   formType === "add" ? (
+      //     <AddCarForm onClose={onClose} styles={styles} />
+      //   ) : null
+      // }
     />
   );
 };

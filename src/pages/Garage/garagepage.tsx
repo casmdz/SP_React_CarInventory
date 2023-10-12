@@ -58,7 +58,7 @@ export default function GaragePage() {
 
                             <Button variant="contained" color="info"
                                 endIcon={<UpdateRoundedIcon />}
-                                onClick={() => { alert('clicked'); }}
+                                onClick={() => openModal("update")}
                             >Click Update
                             </Button>
 

@@ -20,7 +20,7 @@ export const styles = {
     flexDirection: 'column',
     marginTop: '20px',
     marginBottom: '15px',
-    '.MuiInput-root': {
+    '.MuiInputRoot': {
       marginBottom: '20px',
     },
     gap: '1em',
@@ -81,9 +81,3 @@ const BasicModal = ({ open, onClose, title, description, content }: BasicModalPr
   )
 };
 export default BasicModal
-
-
-// alright i dont want my basic modal to have a submit button, so I'll take that away
-// TODO
-// no onClick validate
-// onClose 

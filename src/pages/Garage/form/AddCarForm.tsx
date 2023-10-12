@@ -1,109 +1,127 @@
 //official one okay
-
 import { Box, Button, TextField } from "@mui/material"
 // import { forwardRef } from 'react'
-// import { styles } from "../../../components/ui/BasicModal";
 import { useForm, Controller, SubmitHandler } from "react-hook-form"
 
+import { server_calls } from "../../../data/api/server"
+import { useDispatch, useStore } from "react-redux"
+// import carSlice from "../../../redux/carSlice"
+import { chooseMake, chooseModel, chooseColor, chooseYear } from "../../../redux/carSlice"
 
 
 interface CarInputType {
-make: string;
-model: string;
-carColor: string;
-year: number; 
+  make: string;
+  model: string;
+  carColor: string;
+  year: number;
 }
-
-// TODO deleted Inputs, add back if needed
 
 
 interface AddCarFormProps {
-id?: string;  
-data?: {}; 
-styles: any;
-onClose: () => void;
+  id?: string;
+  data?: {};
+  styles?: any;
+  onClose: () => void;
 }
 
 
 const AddCarForm = ({ styles, onClose }: AddCarFormProps) => {
-const { inputFields, buttons, input } = styles;
 
-const {
-register,
-control,
-handleSubmit,
-// watch,
-formState: { errors },
-} = useForm<CarInputType>();
+  const { inputFields, buttons, input } = styles;
 
-const onSubmitHandler: SubmitHandler<CarInputType> = (data) => {
-console.log('form data is.. ', data)
-}
-// console.log('watching: ', watch("model"))
+  const dispatch = useDispatch(); // redux 
+  const store = useStore();
 
-// TODO - add Handle Function 
-
-return (
-<div className=" border-red-600 border">
-
-<form
-  onSubmit={() => {
-    handleSubmit(onSubmitHandler);
-    console.log('submitted');
-  }}>
-
-  <div style={inputFields}>
-
-    <Controller
-      name="make"
-      control={control}
-      // defaultValue={"Honda"}
-      render={({ field }) => (
-        <TextField {...field} label="Make" />
-      )}
-    />
-
-    <Controller
-      name="model"
-      control={control}
-      render={({ field }) => (
-        <TextField {...field} label="Model" />
-      )}
-    />
+  const { control, handleSubmit, formState: { errors } } = useForm<CarInputType>();
 
 
-    <Controller
-      name="year"
-      control={control}
-      defaultValue={1999}
-      render={({ field }) => (
-        <TextField {...field}
-          label="Year"
-          type="number"
-        />
-      )}
-    />
+  const onSubmitHandler: SubmitHandler<CarInputType> = (data) => {
+    console.log(`form data is opened`)
+    // console.log(`form data is created: ${data}`)
+    // actions to update the Redux store with form data
+    dispatch(chooseMake(data.make));
+    dispatch(chooseModel(data.model));
+    dispatch(chooseColor(data.carColor));
+    dispatch(chooseYear(data.year));
+    // then saving data to server
+    // ex: server_calls.saveCarData(data);
+    server_calls.create(store.getState());
+    setTimeout( () => { window.location.reload() }, 2000 );
+  }
 
-    <Controller
-      name="carColor"
-      control={control}
-      render={({ field }) => (
-        <TextField {...field} label="Color" />
-      )}
-    />
+  // TODO - add Handle Function 
+//  an async function
+// handleSubmit(async (data) => await fetchAPI(data))
 
-  </div>
-  <br />
+  return (
+    <div>
 
-  <Box style={buttons}>
-    <input style={input} type="submit" />
-    <Button variant="outlined" color="error" disableElevation onClick={onClose}>Cancel</Button>
-  </Box>
+      <form
+        onSubmit={() => {
+          handleSubmit(onSubmitHandler);
+          console.log('onSubmit button and func hit');
+        }}>
 
-</form>
-</div>
+        <div style={inputFields}>
 
-)
+          <Controller
+            name="make"
+            control={control}
+            defaultValue=""
+            // defaultValue={"Honda"}
+            render={({ field }) => (
+
+              // render={({ field }) => {
+              //   // return <input {...field} {...register('test')} />; ❌ double up the registration
+              //   return <input {...field} /> // ✅
+              
+              <TextField {...field} label="Make" />
+            )}
+          />
+
+          <Controller
+            name="model"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <TextField {...field} label="Model" />
+            )}
+          />
+
+
+          <Controller
+            name="year"
+            control={control} 
+            defaultValue={2049}
+            render={({ field }) => (
+              <TextField {...field}
+                label="Year"
+                type="number"
+              />
+            )}
+          />
+
+          <Controller
+            name="carColor"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <TextField {...field} label="Color" />
+            )}
+          />
+
+        </div>
+        <br />
+
+        <Box style={buttons}>
+          <input style={input} type="submit" value="SUBMIT" />
+          <Button variant="outlined" color="error" disableElevation onClick={onClose}>Cancel</Button>
+        </Box>
+
+      </form>
+    </div>
+
+  )
 }
 
 export default AddCarForm

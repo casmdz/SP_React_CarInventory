@@ -1,4 +1,4 @@
-import BasicModal from "../../../components/ui/BasicModal"
+import BasicModal from "../../../components/BasicModal"
 import NewCarForm from "./NewCarForm";
 
 

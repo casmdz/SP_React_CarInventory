@@ -9,7 +9,9 @@ export default function NotFound() {
     // console.error(error)
     
     useEffect(() => {
+      
         setTimeout(() => {
+          console.log('NotFound was triggered'),
             navigate("/")
         }, 4000)
     }, [] )
@@ -19,6 +21,7 @@ export default function NotFound() {
     <div id="error-page">
       <h1>Oops!</h1>
       <p>Sorry, an unexpected error has occurred.</p>
+      
       {/* <p>
         <i>{error.statusText || error.message}</i>
       </p> */}

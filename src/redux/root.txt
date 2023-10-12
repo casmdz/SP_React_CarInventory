@@ -1,0 +1,11 @@
+import { combineReducers } from 'redux';
+import carReducer from './carReducer'; 
+// import userReducer from './userReducer'; 
+
+const rootReducer = combineReducers({
+  cars: carReducer,
+  users: userReducer,
+  // other reducers 
+});
+
+export default rootReducer;
