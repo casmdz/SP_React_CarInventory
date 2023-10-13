@@ -1,33 +1,36 @@
 import AddCarForm from "./form/AddCarForm";
 import UpdateCarForm from "./form/UpdateCarForm";
-// import DeleteCarForm from "./DeleteCarForm";
 import BasicModal, { styles } from "../../components/BasicModal";
 
 
 interface CarModalProps {
   open: boolean;
   onClose: () => void;
-  formType: "add" | "update" | "delete" | null;
+  formType?: "add" | "update" | "delete" | null;
+  id?: string[];
+  // selectedCarId?: string[] | null; // got an error when using 'null' 
+  // setSelectedCarId?: (id: string | null ) => void; // set State to update the Ui because u dont want to mess up the form
 }
 
 
-const CarModal = ({ open, onClose, formType }: CarModalProps) => {
+// const CarModal = ({ open, onClose, formType }: CarModalProps) => {
+const CarModal = ( props: CarModalProps) => {
 
   let title = "";
   let description = "";
   let formContent = null;
 
 
-  switch (formType) {
+  switch (props.formType) {
     case "add":
       title = "Add Car";
       description = "Add a new car to your garage.";
-      formContent = <AddCarForm onClose={onClose} styles={styles} />;
+      formContent = <AddCarForm onClose={props.onClose} styles={styles} />;
       break;
     case "update":
       title = "Update Car";
-      description = "Update your car details.";
-      formContent = <UpdateCarForm onClose={onClose} styles={styles} />;
+      description = `Update your car details for Car ID: ${props.id}`;
+      formContent = <UpdateCarForm onClose={props.onClose} styles={styles} id={props.id} />;
       break;
     default:
       title = "Car Dashboard Form";
@@ -36,26 +39,13 @@ const CarModal = ({ open, onClose, formType }: CarModalProps) => {
   }
 
   return (
-      // <BasicModal
-      //   open={open}
-      //   onClose={onClose}
-      //   title={title}
-      //   // formType === "add" ? ("Add a car" : "Fill this out to add a new car to the database") 
-      //   description={description}
-      //   content={renderForm()}
-      // /> 
 
-      <BasicModal
-      open={open}
-      onClose={onClose}
-      title={title}
-      description={description}
-      content={formContent}
-      // content={
-      //   formType === "add" ? (
-      //     <AddCarForm onClose={onClose} styles={styles} />
-      //   ) : null
-      // }
+  <BasicModal
+  open={props.open}
+  onClose={props.onClose}
+  title={title}
+  description={description}
+  content={formContent}
     />
   );
 };

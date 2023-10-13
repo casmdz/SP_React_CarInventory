@@ -1,13 +1,11 @@
 //official one okay
 
 import { Box, Button, TextField } from "@mui/material"
-// import { forwardRef } from 'react'
-// import { styles } from "../../../components/ui/BasicModal";
 import { useForm, Controller, SubmitHandler } from "react-hook-form"
 
 import { server_calls } from "../../../data/api/server"
-import { useDispatch, useStore } from "react-redux"
-import { chooseMake, chooseModel, chooseColor, chooseYear } from "../../../redux/carSlice"
+// import { useDispatch, useStore } from "react-redux"
+// import { chooseMake, chooseModel, chooseColor, chooseYear } from "../../../redux/carSlice"
 
 
 interface CarInputType {
@@ -18,7 +16,8 @@ year: number;
 }
 
 interface UpdateCarFormProps {
-id?: string;  
+id?: string[];  // Help, i don't know 
+// selectedCarId?: string; //TODO check those 
 data?: {}; 
 styles?: any;
 onClose: () => void;
@@ -28,32 +27,54 @@ onClose: () => void;
 const UpdateCarForm = ( props: UpdateCarFormProps ) => {
   const { inputFields, buttons, input } = props.styles;
 
-  const dispatch = useDispatch();
-  const store = useStore();
+  // const dispatch = useDispatch();
+  // const store = useStore();
 
-  const { control, handleSubmit, formState: { errors } } = useForm<CarInputType>();
+  const { control, handleSubmit } = useForm<CarInputType>();
 
 
   const onSubmitHandler: SubmitHandler<CarInputType> = (data: any, event: any) => {
     console.log(`ID has been tickled: ${props.id}`);
-    if (props.id) {
-      server_calls.update(props.id, data)
-      console.log(`updated stuff: ${data} ${props.id} `)
+    if (props.id && props.id.length === 1) {
+      const selectedCarId = props.id[0];
+      
+      server_calls.update(selectedCarId, data);
+      console.log(`Updated car with ID: ${selectedCarId} ${data}`);
+      event.target.reset();
+      props.onClose(); 
     } else {
-      // use dispatch to update our state in our store 
-      // coming from inside the form
-      dispatch(chooseMake(data.make));
-      dispatch(chooseModel(data.model)); 
-      dispatch(chooseYear(data.year)); 
-      dispatch(chooseColor(data.carColor)); 
-
-// TODO check if this is right 
-      // server_calls.create(store.getState())
-      // goes to the store and updates the store 
-      server_calls.update(store.getState())
-      setTimeout( () => { window.location.reload() }, 2000 );
+      alert('Please select only one car to update.');
     }
   }
+  
+
+//     console.log(`ID has been tickled: ${props.id}`);
+//     if (props.id && props.id.length > 0) {
+//       server_calls.update(props.id[0], data)
+//       console.log(`updated stuff: ${data.make} ${props.id}`)
+//       // setTimeout(() => {window.location.reload()}, 5000);
+//       event.target.reset()
+//       props.onClose();
+
+//   } else {
+//     // if (props.id) {
+//     //   server_calls.update(props.id, data)
+//     //   console.log(`updated stuff: ${data.make} ${props.id} `)
+//     // } else { 
+//       // use dispatch to update our state in our store 
+//       // coming from inside the form
+//       dispatch(chooseMake(data.make));
+//       dispatch(chooseModel(data.model)); 
+//       dispatch(chooseYear(data.year)); 
+//       dispatch(chooseColor(data.carColor)); 
+
+// // TODO check if this is right 
+//       // server_calls.create(store.getState())
+//       // goes to the store and updates the store 
+//       server_calls.update(store.getState())
+//       setTimeout( () => { window.location.reload() }, 2000 );
+//     }
+  // }
   
   // TODO - add Handle Function with state management
 

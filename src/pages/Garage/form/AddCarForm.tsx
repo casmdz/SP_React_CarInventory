@@ -18,35 +18,36 @@ interface CarInputType {
 
 
 interface AddCarFormProps {
-  id?: string;
+  id?: string[]; // added array 
   data?: {};
   styles?: any;
   onClose: () => void;
 }
 
 
-const AddCarForm = ({ styles, onClose }: AddCarFormProps) => {
+const AddCarForm = ( props: AddCarFormProps) => {
 
-  const { inputFields, buttons, input } = styles;
+  const { inputFields, buttons, input } = props.styles;
 
   const dispatch = useDispatch(); // redux 
   const store = useStore();
 
-  const { control, handleSubmit, formState: { errors } } = useForm<CarInputType>();
+  const { control, handleSubmit } = useForm<CarInputType>();
 
 
   const onSubmitHandler: SubmitHandler<CarInputType> = (data) => {
     console.log(`form data is opened`)
-    // console.log(`form data is created: ${data}`)
-    // actions to update the Redux store with form data
-    dispatch(chooseMake(data.make));
-    dispatch(chooseModel(data.model));
-    dispatch(chooseColor(data.carColor));
-    dispatch(chooseYear(data.year));
-    // then saving data to server
-    // ex: server_calls.saveCarData(data);
-    server_calls.create(store.getState());
-    setTimeout( () => { window.location.reload() }, 2000 );
+    if ( props.id && props.id.length > 0 ){
+      props.onClose();
+      alert('You have something checked. Click update button instead');
+    } else {
+      dispatch(chooseMake(data.make));
+      dispatch(chooseModel(data.model));
+      dispatch(chooseColor(data.carColor));
+      dispatch(chooseYear(data.year));
+      server_calls.create(store.getState());
+      setTimeout( () => { window.location.reload() }, 3000 );
+    }
   }
 
   // TODO - add Handle Function 
@@ -115,7 +116,7 @@ const AddCarForm = ({ styles, onClose }: AddCarFormProps) => {
 
         <Box style={buttons}>
           <input style={input} type="submit" value="SUBMIT" />
-          <Button variant="outlined" color="error" disableElevation onClick={onClose}>Cancel</Button>
+          <Button variant="outlined" color="error" disableElevation onClick={props.onClose}>Cancel</Button>
         </Box>
 
       </form>
