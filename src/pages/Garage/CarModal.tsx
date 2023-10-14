@@ -8,12 +8,9 @@ interface CarModalProps {
   onClose: () => void;
   formType?: "add" | "update" | "delete" | null;
   id?: string[];
-  // selectedCarId?: string[] | null; // got an error when using 'null' 
-  // setSelectedCarId?: (id: string | null ) => void; // set State to update the Ui because u dont want to mess up the form
 }
 
 
-// const CarModal = ({ open, onClose, formType }: CarModalProps) => {
 const CarModal = ( props: CarModalProps) => {
 
   let title = "";
@@ -29,8 +26,9 @@ const CarModal = ( props: CarModalProps) => {
       break;
     case "update":
       title = "Update Car";
-      description = `Update your car details for Car ID: ${props.id}`;
+      description = `Update your car details for Car ID: ${props.id}`; // 
       formContent = <UpdateCarForm onClose={props.onClose} styles={styles} id={props.id} />;
+      // 
       break;
     default:
       title = "Car Dashboard Form";
@@ -38,16 +36,16 @@ const CarModal = ( props: CarModalProps) => {
       break;
   }
 
-  return (
+return (
 
-  <BasicModal
+<BasicModal
   open={props.open}
   onClose={props.onClose}
   title={title}
   description={description}
   content={formContent}
-    />
-  );
+/>
+);
 };
 
 export default CarModal;

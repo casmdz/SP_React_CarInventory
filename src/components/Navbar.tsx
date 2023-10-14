@@ -11,7 +11,7 @@ import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import GarageRoundedIcon from "@mui/icons-material/GarageRounded";
 
 
-const pages = ["home", "about", "login", "signup", "garage"];
+const pages = ["home", "login", "signup", "garage"];
 
 export default function Navbar() {
   // ... (other code)
@@ -122,14 +122,13 @@ export default function Navbar() {
 
                 {/* right hand side button */}
                 <Box sx={{ flexGrow: 0 }}>
-                    <div>
+                    <NavLink to={"/garage"}>
                     <IconButton 
                     aria-label="car icon" sx={{ color: "#fafafa" }}
-                    // onClick={openCart}
                     >
                         <Badge
                         color="error"
-                        badgeContent={2}
+                        // badgeContent={2}
                         // badgeContent={cartQuantity}
                         >
                         <Tooltip title="Your Cars">
@@ -137,7 +136,7 @@ export default function Navbar() {
                         </Tooltip>
                         </Badge>
                     </IconButton>
-                    </div>
+                    </NavLink>
                 </Box>
 
 

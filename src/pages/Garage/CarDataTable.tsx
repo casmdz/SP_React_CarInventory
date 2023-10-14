@@ -1,14 +1,12 @@
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { useState } from 'react';
-
 // import CarModal from './CarModal';
 // import GaragePage from './garagepage';
 // import { server_calls } from '../../data/api/server';
-
 import { useGetData } from '../../hooks/FetchData';
 import CarModal from './CarModal';
-
-
+// import { setSelectedCar } from '../../redux/selectedCarSlice';
+// import { useDispatch, useSelector } from 'react-redux';
 
 const columns: GridColDef[] = [
   { field: 'make', headerName: 'Make', width: 150 },
@@ -18,46 +16,34 @@ const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 600 },
 ]
 
-// const columns: GridColDef[] = [
-//   { field: 'id', headerName: 'ID', flex:.5 },
-//   { field: 'make', headerName: 'Make', flex: 1 },
-//   { field: 'model', headerName: 'Model', flex: 2},
-//   { field: 'year', headerName: 'Year', flex:1  },
-//   { field: 'color', headerName: 'Color', flex: 1 },
-// ]
+interface CarDataTableProps {
+  setRowSelectionModel?: (selectedItem: string[]) => void;
+}
 
 
-
-// interface CarDataTableProps {
-//   setSelectedCarId: (carId: string | null) => void; // callback to set the selected car's ID
-// }
-
-
-export default function CarDataTable() {
+export default function CarDataTable( props: CarDataTableProps ) {
 
   let [open, setOpen] = useState(false);
-  // const handleOpen = () => {
-  //   setOpen(true)
-  // }
   const handleClose = () => {
     setOpen(false)
   }
-  // https://mui.com/x/react-data-grid/row-selection/#controlled-row-selection
-
-
   const { carData, getData } = useGetData(); // hook 
   // TODO  write useGetData hook and selection model state change 
-  // click the checkmark and get the ID 
-  // DataGrid MUI Selection 
-  const [ selectionModel, setSelectionModel ] = useState<string[]>([]) // store 
+
+  const [ rowSelectionModel, setRowSelectionModel ] = useState<string[]>() // store 
   // onclick handle open for Update button, but update function HAS ID held in this func 
 
+  // const dispatch = useDispatch();
+  // const selectedCar = useSelector((state) => state.selectedCar);
+  // const handleCarSelection = ( selectedCarId, selectedCarData ) => {
+  //   dispatch(setSelectedCar({ id: selectedCarId, data: selectedCarData }));
+  // }
 
   return (
     <>
-    <CarModal id={selectionModel} open={open} onClose={handleClose} />
+    <CarModal id={rowSelectionModel} open={open} onClose={handleClose} />
       <div>
-        <div className="container bg-slate-300 flex flex-col">
+        <div className="container bg-sky-900 flex flex-col">
           <h2 className="p-3 my-2 rounded">My cars</h2>
         </div>
 
@@ -66,13 +52,15 @@ export default function CarDataTable() {
             rows={carData} 
             columns={columns} 
             checkboxSelection={true} 
-            // onRowSelectionModelChange={ (item: any) => {
-            //   setSelectionModel(item)
-            // }}
-            // id={selectionModel}
-
+            
+            rowSelectionModel={rowSelectionModel}  // passing the model
             onRowSelectionModelChange={(item: any) => {
-              setSelectionModel(item); // Update the selected car IDs
+              console.log('New rowSelectionModel ID grabbed:', item);
+              setRowSelectionModel(item);
+              console.log('CarDataTable re-rendered with rowSelectionModel:', rowSelectionModel);
+              if (props.setRowSelectionModel) {
+                props.setRowSelectionModel(item)
+              }
             }}
             />
 

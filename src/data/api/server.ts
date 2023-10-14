@@ -11,8 +11,13 @@ export const server_calls = {
         const response = await fetch(`https://flask-api-car-collection.onrender.com/api/cars`,
         {
             method: 'GET',
-            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'x-access-token': `Bearer ${token}`
+            }
         }); // TODO: check if /api/cars or /api 
+        // /my_cars
 
         if (!response.ok){
             console.log('Failed to get')
@@ -27,15 +32,15 @@ export const server_calls = {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
-                // 'Access-Control-Allow-Origin': '*',
-                // 'x-access-token': `Bearer ${token}`
+                'Access-Control-Allow-Origin': '*',
+                'x-access-token': `Bearer ${token}`
             },
             body: JSON.stringify(data)
         })
 
         if (!response.ok) {
             console.log('failed to create new data on the server!')
-            throw new Error('failed to create new data on the server.')
+            throw new Error('failed to create new data on the server!!')
         }
         return await response.json() 
     },

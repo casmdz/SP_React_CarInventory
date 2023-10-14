@@ -32,7 +32,16 @@ export default function StickyFooter() {
           flexDirection: 'column',
           flexWrap: 'wrap',
           justifyContent: 'space-around',
-          minHeight: '91vh',
+          // minHeight: '91vh',
+          // position: 'sticky',
+          // bottom: 0,
+          position: 'fixed',
+          bottom: 0,
+          width: '100%',
+          // marginTop: 'calc(10% + 60px)',
+          // left: 0, 
+          // bottom: 0, 
+          // right: 0, 
         }}
       >
         <CssBaseline />
@@ -43,18 +52,20 @@ export default function StickyFooter() {
             display: 'flex',
             py: 3,
             px: 2,
-            mt: 'auto',
+            // mt: 'auto',
             backgroundColor: (theme) =>
-              theme.palette.mode === 'light'
-                ? theme.palette.grey[200]
-                : theme.palette.grey[800],
+              theme.palette.mode === 'dark'
+                ? 
+                theme.palette.grey[800]
+                : 
+                theme.palette.grey[200],
           }}
         >
             
           <Container maxWidth="md">
-            <Typography variant="body1">
+            {/* <Typography variant="body1">
               Cas Car
-            </Typography>
+            </Typography> */}
             <Copyright />
           </Container>
 

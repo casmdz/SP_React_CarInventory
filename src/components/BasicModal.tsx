@@ -57,7 +57,7 @@ const BasicModal = ({ open, onClose, title, description, content }: BasicModalPr
   return (
     <Modal open={open} onClose={onClose}>
       <Box sx={styles.wrapper} onClick={(e) => { e.stopPropagation() }}>
-        <div className='grid grid-cols-2 gap-1'>
+        <div className='grid grid-cols-2 gap-1 '>
           <Typography id="modal-modal-title" variant="h5" component="h2" className="col-start-1 self-end">
             {title}
           </Typography>
@@ -70,7 +70,7 @@ const BasicModal = ({ open, onClose, title, description, content }: BasicModalPr
         </div>
         <Divider />
 
-        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+        <Typography className="break-all" id="modal-modal-description" sx={{ mt: 2 }}>
           {description}
         </Typography>
 

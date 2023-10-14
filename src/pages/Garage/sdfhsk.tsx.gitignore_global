@@ -1,0 +1,15 @@
+Opening modal with type: update garagepage.tsx:25:16
+Current rowSelectionModel if length === 0: 0 garagepage.tsx:32:24
+New selectionModel: 
+Array [ "91shoux24tNKPc8J0g1g-8t232demZ9U33oxI5aQykI" ]
+CarDataTable.tsx:55:22
+Opening modal with type: update garagepage.tsx:25:16
+Current rowSelectionModel if length === 0: 0 garagepage.tsx:32:24
+New selectionModel: 
+Array [ "91shoux24tNKPc8J0g1g-8t232demZ9U33oxI5aQykI", "-koZwPgK6lcBxzvArEPAMTmX-EcICeIHSSUqCq12Vcg" ]
+CarDataTable.tsx:55:22
+New selectionModel: 
+Array(3) [ "91shoux24tNKPc8J0g1g-8t232demZ9U33oxI5aQykI", "-koZwPgK6lcBxzvArEPAMTmX-EcICeIHSSUqCq12Vcg", "hb_QlEawHjx20ihCiYBVp3AC__TEKIHrnsxiZROrbLc" ]
+CarDataTable.tsx:55:22
+Opening modal with type: update garagepage.tsx:25:16
+Current rowSelectionModel if length === 0: 0 garagepage.tsx:32:24

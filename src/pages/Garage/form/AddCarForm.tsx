@@ -1,4 +1,3 @@
-//official one okay
 import { Box, Button, TextField } from "@mui/material"
 // import { forwardRef } from 'react'
 import { useForm, Controller, SubmitHandler } from "react-hook-form"
@@ -39,12 +38,13 @@ const AddCarForm = ( props: AddCarFormProps) => {
     console.log(`form data is opened`)
     if ( props.id && props.id.length > 0 ){
       props.onClose();
-      alert('You have something checked. Click update button instead');
+      window.alert('You have something checked. Click update button instead');
     } else {
       dispatch(chooseMake(data.make));
       dispatch(chooseModel(data.model));
       dispatch(chooseColor(data.carColor));
       dispatch(chooseYear(data.year));
+      // await server_calls.create(data);
       server_calls.create(store.getState());
       setTimeout( () => { window.location.reload() }, 3000 );
     }
@@ -54,75 +54,70 @@ const AddCarForm = ( props: AddCarFormProps) => {
 //  an async function
 // handleSubmit(async (data) => await fetchAPI(data))
 
-  return (
-    <div>
+return (
+  <div>
 
-      <form
-        onSubmit={() => {
-          handleSubmit(onSubmitHandler);
-          console.log('onSubmit button and func hit');
-        }}>
+    <form onSubmit={handleSubmit(onSubmitHandler)}>
+      <div style={inputFields}>
 
-        <div style={inputFields}>
+        <Controller
+          name="make"
+          control={control}
+          defaultValue=""
+          // defaultValue={"Honda"}
+          render={({ field }) => (
 
-          <Controller
-            name="make"
-            control={control}
-            defaultValue=""
-            // defaultValue={"Honda"}
-            render={({ field }) => (
+            // render={({ field }) => {
+            //   // return <input {...field} {...register('test')} />; ❌ double up the registration
+            //   return <input {...field} /> // ✅
 
-              // render={({ field }) => {
-              //   // return <input {...field} {...register('test')} />; ❌ double up the registration
-              //   return <input {...field} /> // ✅
-              
-              <TextField {...field} label="Make" />
-            )}
-          />
+            <TextField {...field} label="Make" />
+          )}
+        />
 
-          <Controller
-            name="model"
-            control={control}
-            defaultValue=""
-            render={({ field }) => (
-              <TextField {...field} label="Model" />
-            )}
-          />
+        <Controller
+          name="model"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <TextField {...field} label="Model" />
+          )}
+        />
 
 
-          <Controller
-            name="year"
-            control={control} 
-            defaultValue={2049}
-            render={({ field }) => (
-              <TextField {...field}
-                label="Year"
-                type="number"
-              />
-            )}
-          />
+        <Controller
+          name="year"
+          control={control}
+          defaultValue={2000}
+          render={({ field }) => (
+            <TextField {...field}
+              label="Year"
+              type="number"
+            />
+          )}
+        />
 
-          <Controller
-            name="carColor"
-            control={control}
-            defaultValue=""
-            render={({ field }) => (
-              <TextField {...field} label="Color" />
-            )}
-          />
+        <Controller
+          name="carColor"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <TextField {...field} label="Color" />
+          )}
+        />
 
-        </div>
-        <br />
+      </div>
+      <br />
 
-        <Box style={buttons}>
-          <input style={input} type="submit" value="SUBMIT" />
-          <Button variant="outlined" color="error" disableElevation onClick={props.onClose}>Cancel</Button>
-        </Box>
+      <Box style={buttons}>
+        <input style={input} type="submit" value="SUBMIT" />
+        <Button variant="outlined" color="error" disableElevation onClick={props.onClose}>Cancel</Button>
+      </Box>
 
-      </form>
-    </div>
+    </form>
+  </div>
 
-  )
+)
 }
 
 export default AddCarForm
