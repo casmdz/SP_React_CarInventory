@@ -11,13 +11,12 @@ import { server_calls } from "../../../data/api/server"
 interface CarInputType {
 make: string;
 model: string;
-carColor: string;
-year: number; 
+color: string;
+year: string; 
 }
 
 interface UpdateCarFormProps {
-id?: string[];  // Help, i don't know 
-// selectedCarId?: string; //TODO check those 
+id?: string[]; 
 data?: {}; 
 styles?: any;
 onClose: () => void;
@@ -27,24 +26,7 @@ onClose: () => void;
 const UpdateCarForm = ( props: UpdateCarFormProps ) => {
   const { inputFields, buttons, input } = props.styles;
 
-  // const dispatch = useDispatch();
-  // const store = useStore();
-  
-  // const selectedCar = useSelector((state) => state.selectedCar);
-  const { control, handleSubmit } = useForm<CarInputType>({
-    // defaultValues: {
-    //   make: data.make,
-    //   model: data.model,
-    //   year: data.year,
-    //   carColor: data.color, 
-    // }
-    // defaultValues:{
-    //   make: selectedCar.carData?.make ,
-    //   model: selectedCar.carData?.model,
-    //   carColor: selectedCar.carData?.color || '',
-    //   year: selectedCar.carData?.year 
-    // }
-  });
+  const { control, handleSubmit } = useForm<CarInputType>({});
 
   const onSubmitHandler: SubmitHandler<CarInputType> = (data: any, event: any) => {
     console.log(`ID has been tickled: ${props.id}`);
@@ -54,7 +36,8 @@ const UpdateCarForm = ( props: UpdateCarFormProps ) => {
       server_calls.update(selectedCarId, data);
       console.log(`Updated car with ID: ${selectedCarId} ${data}`);
       event.target.reset();
-      props.onClose(); 
+      props.onClose();
+      setTimeout( () => { window.location.reload() }, 2000 )
       // props.setRowSelectionModel([])
     } else {
       console.log('Error encountered in updatecarform')
@@ -62,18 +45,11 @@ const UpdateCarForm = ( props: UpdateCarFormProps ) => {
     }
   }
   
-  
-  
-  // TODO - add Handle Function with state management
 
   return (
 <div>
 
-<form
-  onSubmit={() => {
-    handleSubmit(onSubmitHandler);
-    console.log('submitted');
-  }}>
+<form onSubmit={handleSubmit(onSubmitHandler)}>
 
   <div style={inputFields}>
 
@@ -99,17 +75,17 @@ const UpdateCarForm = ( props: UpdateCarFormProps ) => {
     <Controller
       name="year"
       control={control}
-      defaultValue={2023}
+      defaultValue="2023"
       render={({ field }) => (
         <TextField {...field}
           label="Year"
-          type="number"
+          // type="number"
         />
       )}
     />
 
     <Controller
-      name="carColor"
+      name="color"
       control={control}
       defaultValue={''}
       render={({ field }) => (

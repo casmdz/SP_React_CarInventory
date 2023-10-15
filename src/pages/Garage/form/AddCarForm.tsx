@@ -1,24 +1,21 @@
 import { Box, Button, TextField } from "@mui/material"
-// import { forwardRef } from 'react'
 import { useForm, Controller, SubmitHandler } from "react-hook-form"
-
 import { server_calls } from "../../../data/api/server"
-import { useDispatch, useStore } from "react-redux"
-// import carSlice from "../../../redux/carSlice"
-import { chooseMake, chooseModel, chooseColor, chooseYear } from "../../../redux/carSlice"
+// import { useDispatch, useStore } from "react-redux"
+// import { chooseMake, chooseModel, chooseColor, chooseYear } from "../../../redux/carSlice"
 
 
 interface CarInputType {
   make: string;
   model: string;
-  carColor: string;
-  year: number;
+  color: string;
+  year: string;
 }
 
 
 interface AddCarFormProps {
-  id?: string[]; // added array 
-  data?: {};
+  id?: string[];
+  // data?: {};
   styles?: any;
   onClose: () => void;
 }
@@ -27,50 +24,54 @@ interface AddCarFormProps {
 const AddCarForm = ( props: AddCarFormProps) => {
 
   const { inputFields, buttons, input } = props.styles;
+  // const dispatch = useDispatch(); // redux 
+  // const store = useStore();
 
-  const dispatch = useDispatch(); // redux 
-  const store = useStore();
-
+  // const { control, handleSubmit } = useForm({});
   const { control, handleSubmit } = useForm<CarInputType>();
 
 
-  const onSubmitHandler: SubmitHandler<CarInputType> = (data) => {
-    console.log(`form data is opened`)
-    if ( props.id && props.id.length > 0 ){
-      props.onClose();
-      window.alert('You have something checked. Click update button instead');
-    } else {
-      dispatch(chooseMake(data.make));
-      dispatch(chooseModel(data.model));
-      dispatch(chooseColor(data.carColor));
-      dispatch(chooseYear(data.year));
-      // await server_calls.create(data);
-      server_calls.create(store.getState());
-      setTimeout( () => { window.location.reload() }, 3000 );
-    }
+  // const onSubmitHandler: SubmitHandler<CarInputType> = (data: any, event: any) => {
+  const onSubmit = (data: CarInputType ) => {
+    console.log('Data object:', data);
+    server_calls.create(data)
+    .then((response) => {
+      console.log('API response:', response);
+    })
+    .catch((error) => {
+      console.error('Error creating data:', error);
+    });
+    console.log('just created ', data);
+    alert(JSON.stringify(data));
+    props.onClose();
+    setTimeout( () => { window.location.reload() }, 800 )
   }
+  //   console.log('Data object:', data);
+  //   dispatch(chooseMake(data.make));
+  //   dispatch(chooseModel(data.model));
+  //   dispatch(chooseColor(data.color));
+  //   dispatch(chooseYear(data.year));
+  //   server_calls.create(store.getState()).then((response) => {
+  //     console.log('API response:', response);
+  //   });
+  //   console.log(`just created: ${data}`);
+  //   alert(JSON.stringify(data))
+  // }
 
-  // TODO - add Handle Function 
-//  an async function
-// handleSubmit(async (data) => await fetchAPI(data))
+  // STORING IT TO REDUX WAS CAUSING THE "POST" ERROR !!!!!!!!
+
 
 return (
   <div>
 
-    <form onSubmit={handleSubmit(onSubmitHandler)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div style={inputFields}>
 
         <Controller
           name="make"
           control={control}
           defaultValue=""
-          // defaultValue={"Honda"}
           render={({ field }) => (
-
-            // render={({ field }) => {
-            //   // return <input {...field} {...register('test')} />; ❌ double up the registration
-            //   return <input {...field} /> // ✅
-
             <TextField {...field} label="Make" />
           )}
         />
@@ -88,17 +89,17 @@ return (
         <Controller
           name="year"
           control={control}
-          defaultValue={2000}
+          defaultValue="2000"
           render={({ field }) => (
             <TextField {...field}
               label="Year"
-              type="number"
+              // type="number"
             />
           )}
         />
 
         <Controller
-          name="carColor"
+          name="color"
           control={control}
           defaultValue=""
           render={({ field }) => (

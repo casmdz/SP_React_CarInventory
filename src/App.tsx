@@ -16,6 +16,9 @@ import GaragePage from './pages/Garage/garagepage';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
+import { Provider } from 'react-redux';
+import store from './redux/store'
+
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
@@ -29,6 +32,7 @@ export default function App() {
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
     <Navbar />
+    <Provider store={store}>
     <Container>
 
       <Routes>
@@ -44,6 +48,7 @@ export default function App() {
         <Route path="*" element={ <NotFound />} />
       </Routes>
     </Container>
+    </Provider>
     <StickyFooter />
     </ThemeProvider>
     </>

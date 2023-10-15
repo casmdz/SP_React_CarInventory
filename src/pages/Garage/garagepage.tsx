@@ -16,6 +16,8 @@ import CarDataTable from "./CarDataTable";
 export default function GaragePage() {
 
 // CHANGES BY MUI https://mui.com/x/migration/migration-data-grid-v5/#%E2%9C%85-renamed-props selectionModel 	rowSelectionModel
+  // const { contactData, getData } = useGetData();
+  const { getData } = useGetData(); 
 
   const [rowSelectionModel, setRowSelectionModel] = useState<string[]>([]); // Store selected car IDs 
 
@@ -65,14 +67,14 @@ export default function GaragePage() {
   }
 
 
-  const { carData, getData } = useGetData(); 
 
 
   const deleteData = () => {
       server_calls.delete(rowSelectionModel[0])
       getData();
       console.log(`Selection model: ${rowSelectionModel}`)
-      setTimeout( () => { window.location.reload() }, 500 );
+      alert('you deleted something')
+      setTimeout( () => { window.location.reload() }, 3500 );
 
   }
 

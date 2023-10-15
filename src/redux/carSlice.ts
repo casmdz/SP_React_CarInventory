@@ -8,14 +8,15 @@ import { createSlice } from '@reduxjs/toolkit';
 const carSlice = createSlice ({
     name: 'cars',
     initialState: {
-        car_make: "Make", car_model: "Model", car_color: "Color", car_year: "Year"
+        make: "Make", model: "Model", color: "", year: "Year"
+        // car_make: "Make", car_model: "Model", car_color: "Color", car_year: "Year"
     },
     reducers: {
         // increment: state => {state.make += 1},
-        chooseMake: (state, action) => { state.car_make = action.payload}, 
-        chooseModel: (state, action) => { state.car_model = action.payload}, 
-        chooseYear: (state, action) => { state.car_year = action.payload}, 
-        chooseColor: (state, action) => { state.car_color = action.payload}, 
+        chooseMake: (state, action) => { state.make = action.payload}, 
+        chooseModel: (state, action) => { state.model = action.payload}, 
+        chooseYear: (state, action) => { state.year = action.payload}, 
+        chooseColor: (state, action) => { state.color = action.payload}, 
     }
 }) 
 
