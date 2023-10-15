@@ -28,16 +28,10 @@ export default function CarDataTable( props: CarDataTableProps ) {
     setOpen(false)
   }
   const { carData, getData } = useGetData(); // hook 
-  // TODO  write useGetData hook and selection model state change 
 
   const [ rowSelectionModel, setRowSelectionModel ] = useState<string[]>() // store 
   // onclick handle open for Update button, but update function HAS ID held in this func 
 
-  // const dispatch = useDispatch();
-  // const selectedCar = useSelector((state) => state.selectedCar);
-  // const handleCarSelection = ( selectedCarId, selectedCarData ) => {
-  //   dispatch(setSelectedCar({ id: selectedCarId, data: selectedCarData }));
-  // }
 
   return (
     <>

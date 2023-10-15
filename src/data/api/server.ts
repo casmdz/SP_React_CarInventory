@@ -2,8 +2,8 @@
 
 //  https://github.com/casmdz/DigitalLibrary_Render/blob/main/app/authentication/routes.py
 // https://flask-api-car-collection.onrender.com
-// f944d07058f1bfcc40564c223f28776d3fbe429b61a99a68
-const token = '7978b0db876d776d7237105ab17c2613855b20f9cb7e7e19'
+// '7978b0db876d776d7237105ab17c2613855b20f9cb7e7e19'
+const token = 'f944d07058f1bfcc40564c223f28776d3fbe429b61a99a68'
 // https://flask-api-car-collection.onrender.com/api/cars
 //We will be upgrading critical infrastructure on October 15th, 5:00 pm CDT (October 15th, 10:00 pm UTC). For up to 30 minutes, you will be unable to view, edit, create, or deploy services and databases. There will be no interruptions to deployed services and databases. Follow our status page for updates.
 
@@ -48,7 +48,7 @@ export const server_calls = {
     },
 
     update: async (id: string, data: any ={}) => {
-        const response = await fetch (`https://flask-api-car-collection.onrender.com/api/cars/${id}`, // TODO check 4 correct endpoint
+        const response = await fetch (`https://flask-api-car-collection.onrender.com/api/cars/${id}`,
         {
             method: "POST",
             headers: {
