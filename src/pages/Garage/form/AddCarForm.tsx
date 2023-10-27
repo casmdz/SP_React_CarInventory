@@ -1,5 +1,5 @@
 import { Box, Button, TextField } from "@mui/material"
-import { useForm, Controller, SubmitHandler } from "react-hook-form"
+import { useForm, Controller } from "react-hook-form"
 import { server_calls } from "../../../data/api/server"
 // import { useDispatch, useStore } from "react-redux"
 // import { chooseMake, chooseModel, chooseColor, chooseYear } from "../../../redux/carSlice"
@@ -42,7 +42,7 @@ const AddCarForm = ( props: AddCarFormProps) => {
       console.error('Error creating data:', error);
     });
     console.log('just created ', data);
-    alert(JSON.stringify(data));
+    alert("Just created\n" + JSON.stringify(data, null, 2));
     props.onClose();
     setTimeout( () => { window.location.reload() }, 800 )
   }

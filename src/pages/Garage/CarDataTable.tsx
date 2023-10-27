@@ -27,7 +27,7 @@ export default function CarDataTable( props: CarDataTableProps ) {
   const handleClose = () => {
     setOpen(false)
   }
-  const { carData, getData } = useGetData(); // hook 
+  const { carData } = useGetData(); // hook 
 
   const [ rowSelectionModel, setRowSelectionModel ] = useState<string[]>() // store 
   // onclick handle open for Update button, but update function HAS ID held in this func 

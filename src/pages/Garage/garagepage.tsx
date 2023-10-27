@@ -73,7 +73,7 @@ export default function GaragePage() {
       server_calls.delete(rowSelectionModel[0])
       getData();
       console.log(`Selection model: ${rowSelectionModel}`)
-      alert('you deleted something')
+      alert("You deleted car ID: \n" + JSON.stringify(rowSelectionModel, null, 2))
       setTimeout( () => { window.location.reload() }, 3500 );
 
   }
