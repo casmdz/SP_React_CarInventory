@@ -35,9 +35,10 @@ const UpdateCarForm = ( props: UpdateCarFormProps ) => {
       
       server_calls.update(selectedCarId, data);
       console.log(`Updated car with ID: ${selectedCarId} ${data}`);
+      alert("You updated the car: \n" + JSON.stringify(data, null, 2))
       event.target.reset();
       props.onClose();
-      setTimeout( () => { window.location.reload() }, 2000 )
+      setTimeout( () => { window.location.reload() }, 500 )
       // props.setRowSelectionModel([])
     } else {
       console.log('Error encountered in updatecarform')

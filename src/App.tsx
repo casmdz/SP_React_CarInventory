@@ -12,12 +12,15 @@ import StickyFooter from './components/Footer';
 import NotFound from './pages/NotFound';
 import GaragePage from './pages/Garage/garagepage';
 
-
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
 import { Provider } from 'react-redux';
 import store from './redux/store'
+
+// import { Auth0Provider } from '@auth0/auth0-react';
+// import { auth0Config } from './config/auth0.config';
+
 
 const darkTheme = createTheme({
   palette: {
